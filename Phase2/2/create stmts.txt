@@ -1,0 +1,103 @@
+2.	SELECT name as Name, title as Title, price as Price FROM artwork a1 INNER JOIN artist a2 on a1.aID=a2.aID where price>30000 order by price;
+
+QUERY : CREATE ARTIST
+
+CREATE TABLE artist (
+aID INT(10) NOT NULL,
+name VARCHAR(100) NOT NULL,
+birthDate DATE NOT NULL,
+deathDate DATE,
+commission INT(100) NOT NULL,
+street VARCHAR(100) NOT NULL,
+city VARCHAR(100) NOT NULL,
+stateAb VARCHAR(3) NOT NULL,
+zipcode VARCHAR(10) NOT NULL,
+PRIMARY KEY (aID),
+FOREIGN KEY (stateAb) REFERENCES state(stateAb)
+);
+
+
+QUERY : CREATE artwork
+
+CREATE TABLE artwork (
+aID INT(10) NOT NULL,
+artID INT(10) NOT NULL,
+title VARCHAR(100) NOT NULL,
+creationDate DATE NOT NULL,
+acquisitionDate DATE NOT NULL,
+price INT(100) NOT NULL,
+form VARCHAR(100) NOT NULL,
+PRIMARY KEY (artID),
+FOREIGN KEY (aID) REFERENCES artist(aID)
+);
+
+
+QUERY : CREATE bought
+
+CREATE TABLE bought (
+artID INT(10) NOT NULL,
+cID INT(10) NOT NULL,
+saleDate DATE NOT NULL,
+PRIMARY KEY (artID, cID)
+);
+
+
+QUERY : CREATE contract
+
+CREATE TABLE contract (
+aID INT(10) NOT NULL,
+coID INT(10) NOT NULL,
+startDate DATE NOT NULL,
+endDate DATE NOT NULL,
+mRate INT(10) NOT NULL,
+orgName VARCHAR(100) NOT NULL,
+PRIMARY KEY (aID, coID),
+FOREIGN KEY (aID) REFERENCES artist(aID)
+);
+
+
+QUERY : CREATE customer
+
+CREATE TABLE customer (
+cID INT(10) NOT NULL,
+name varchar(100) NOT NULL,
+street VARCHAR(100) NOT NULL,
+city varchar(100) NOT NULL,
+stateAb VARCHAR(3) NOT NULL,
+zipcode varchar(10) NOT NULL,
+PRIMARY KEY (cID),
+FOREIGN KEY (stateAb) REFERENCES state(stateAb)
+);
+
+
+QUERY : CREATE payments
+
+CREATE TABLE payments (
+pID INT(10) NOT NULL,
+artID INT(10) NOT NULL,
+upfrontDate DATE NOT NULL,
+finalDate DATE,
+PRIMARY KEY (PID),
+FOREIGN KEY (artID) REFERENCES artwork(artID)
+);
+
+
+QUERY : CREATE state
+
+CREATE TABLE state (
+stateAb varchar(3) NOT NULL,
+stateName varchar(100) NOT NULL,
+PRIMARY KEY (stateAb)
+);
+
+
+QUERY : CREATE visitors
+
+CREATE TABLE visitors (
+visitorDate DATE NOT NULL,
+male varchar(10) NOT NULL,
+female varchar(10) NOT NULL,
+PRIMARY KEY (visitorDate)
+);
+
+
